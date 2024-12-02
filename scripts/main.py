@@ -4,11 +4,11 @@ if __name__ == "__main__":
     manager = SpeechManager(APPID='ea8d6b60', 
                             APISecret='YjcyY2M4NDk0Y2Q4ODY2ZTMxYzk3Y2E3',
                             APIKey='1bc296f114a83f3f37db4f8ab93837d4',
-                            Recognition_BusinessArgs = {"domain": "iat", "language": "zh_cn", "accent": "mandarin", "vinfo":1,"vad_eos":10000},   #使用中文在线语音听写
-                            # Recognition_BusinessArgs = {"domain": "iat", "language": "en_us", "accent": "mandarin", "vinfo":1,"vad_eos":10000}, #使用英文在线语音听写
-                            Synthesis_BusinessArgs = {"aue": "raw", "auf": "audio/L16;rate=16000", "vcn": "xiaoyan", "tte": "utf8"},              #使用中文在线语音合成
-                            # Synthesis_BusinessArgs = {"aue": "raw", "auf": "audio/L16;rate=16000", "vcn": "x4_enus_luna_assist", "tte": "utf8"},#使用英文在线语音合成
-                            port = '/dev/ttyACM0',
+                            Recognition_BusinessArgs = {"domain": "iat", "language": "zh_cn", "accent": "mandarin", "vinfo":1,"vad_eos":10000},     #使用中文在线语音听写
+                            # Recognition_BusinessArgs = {"domain": "iat", "language": "en_us", "accent": "mandarin", "vinfo":1,"vad_eos":10000},   #使用英文在线语音听写
+                            Synthesis_BusinessArgs = {"aue": "raw", "auf": "audio/L16;rate=16000", "vcn": "xiaoyan", "tte": "utf8"},                #使用中文在线语音合成
+                            # Synthesis_BusinessArgs = {"aue": "raw", "auf": "audio/L16;rate=16000", "vcn": "x4_enus_luna_assist", "tte": "utf8"},  #使用英文在线语音合成
+                            port = '/dev/ttyACM3',  # 根据实际情况调整串口名称
                             baudrate = 115200
                             )
 
@@ -23,9 +23,9 @@ if __name__ == "__main__":
             print(f"Result: {wakeup_info['content']['result']}")
             print(f"Info: {wakeup_info['content']['info']}")
 
-            manager.start_recording(4,'/home/elephant/r818.pcm')  # 开始录音,并保存为r818.pcm音频文件
+            manager.start_recording(4,'/home/elephant/r818.pcm')  # 开始录音4s,并保存为r818.pcm音频文件(绝对路径)
 
-            transcribed_text = manager.online_speech_recognition('./r818.pcm') # 在线语音听写，上传r818.pcm音频文件到科大讯飞在线端
+            transcribed_text = manager.online_speech_recognition('/home/elephant/r818.pcm') # 在线语音听写，上传r818.pcm音频文件到科大讯飞在线端
 
             print(f"Transcribed Text: {transcribed_text}") #打印语音听写生成的文字
             
